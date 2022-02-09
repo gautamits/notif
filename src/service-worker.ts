@@ -107,30 +107,30 @@ self.addEventListener('push', function(event) {
   let text,json
   try{
     json = event.data?.json()
-    const {
-      body,
-      icon,
-      image,
-      badge,
-      vibrate,
-      sound,
-      dir,
-      tag,
-      data,
-      requireInteraction,
-      renotify,
-      silent,
+    // const {
+    //   body,
+    //   icon,
+    //   image,
+    //   badge,
+    //   vibrate,
+    //   sound,
+    //   dir,
+    //   tag,
+    //   data,
+    //   requireInteraction,
+    //   renotify,
+    //   silent,
     
-      //: Both visual & behavioral options,
-      actions,
+    //   //: Both visual & behavioral options,
+    //   actions,
     
-      //: Information Option. No visual affect.,
-      timestamp
-    } = json
+    //   //: Information Option. No visual affect.,
+    //   timestamp
+    // } = json
   } catch(err){
     text = event.data?.text()
   }
-  console.log(json)
+  console.log(json, text)
   const promiseChain = self.registration.showNotification('Hello, World.');
 
   event.waitUntil(promiseChain);
