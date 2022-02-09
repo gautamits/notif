@@ -5,8 +5,7 @@ interface Props {
 }
 
 export default function PushConfiguration(props: Props){
-    const swConfig = useServiceWorkerPush(props.applicationServerKey)
-
+    const [swConfig, error] = useServiceWorkerPush(props.applicationServerKey)
     useEffect(()=>{
         function highlight(){
             const areas = document.getElementsByClassName("highlight");
@@ -15,7 +14,10 @@ export default function PushConfiguration(props: Props){
             }
         }
         highlight()
-    },[])
+    },[props.applicationServerKey])
+    if(error){
+        return <code>{JSON.stringify(error)}</code>
+    }
     return(
         <code>
             {JSON.stringify(swConfig || {}, null , 4)}
@@ -52,5 +54,5 @@ function useServiceWorkerPush(applicationServerKey: string){
             setError(err)
         })
     },[])
-    return config
+    return [config, error]
 }
