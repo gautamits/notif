@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/notif/static/css/main.073c9b0a.css",
+    "main.js": "/notif/static/js/main.4f23069b.js",
+    "static/js/377.c1855308.chunk.js": "/notif/static/js/377.c1855308.chunk.js",
+    "service-worker.js": "/notif/service-worker.js",
+    "index.html": "/notif/index.html",
+    "main.073c9b0a.css.map": "/notif/static/css/main.073c9b0a.css.map",
+    "main.4f23069b.js.map": "/notif/static/js/main.4f23069b.js.map",
+    "377.c1855308.chunk.js.map": "/notif/static/js/377.c1855308.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.4f23069b.js"
+  ]
+}
