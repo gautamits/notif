@@ -72,9 +72,68 @@ registerRoute(
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
+  console.log(event)
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+  else{
+    console.log(event.data)
+  }
+});
+
+// "//": "Visual Options",
+// "body": "<String>",
+// "icon": "<URL String>",
+// "image": "<URL String>",
+// "badge": "<URL String>",
+// "vibrate": "<Array of Integers>",
+// "sound": "<URL String>",
+// "dir": "<String of 'auto' | 'ltr' | 'rtl'>",
+
+// "//": "Behavioral Options",
+// "tag": "<String>",
+// "data": "<Anything>",
+// "requireInteraction": "<boolean>",
+// "renotify": "<Boolean>",
+// "silent": "<Boolean>",
+
+// "//": "Both visual & behavioral options",
+// "actions": "<Array of Strings>",
+
+// "//": "Information Option. No visual affect.",
+// "timestamp": "<Long>"
+
+self.addEventListener('push', function(event) {
+  let text,json
+  try{
+    json = event.data?.json()
+    const {
+      body,
+      icon,
+      image,
+      badge,
+      vibrate,
+      sound,
+      dir,
+      tag,
+      data,
+      requireInteraction,
+      renotify,
+      silent,
+    
+      //: Both visual & behavioral options,
+      actions,
+    
+      //: Information Option. No visual affect.,
+      timestamp
+    } = json
+  } catch(err){
+    text = event.data?.text()
+  }
+  console.log(json)
+  const promiseChain = self.registration.showNotification('Hello, World.');
+
+  event.waitUntil(promiseChain);
 });
 
 // Any other custom service worker logic can go here.

@@ -1,24 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+import PushConfiguration from './components/PushCofiguration';
+import useGist from './helpers/useGist'
 import './App.css';
 
 function App() {
+  const [files, loading, error] = useGist<{'public-keys.json': {[key: string]: {applicationServerKey: string}}}>('https://api.github.com/gists/0dd4eefe5c806baa90d968a34aed9983')
+  if(loading) return <div>fetching Json</div>
+  if(error) return <div>{JSON.stringify(error)}</div>
+  if(!files || typeof files !== 'object') return <div>files not populated</div>
+  const applicationServerKey = files['public-keys.json']['notif']['applicationServerKey']
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PushConfiguration applicationServerKey={applicationServerKey}/>
     </div>
   );
 }
