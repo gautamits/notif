@@ -1,5 +1,5 @@
 import React from 'react';
-import PushConfiguration from './components/PushCofiguration';
+import PushConfiguration from './components/PushConfiguration';
 import useGist from './helpers/useGist'
 import './App.css';
 

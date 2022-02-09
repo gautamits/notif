@@ -76,64 +76,19 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-  else{
-    console.log(event.data)
-  }
 });
-
-// "//": "Visual Options",
-// "body": "<String>",
-// "icon": "<URL String>",
-// "image": "<URL String>",
-// "badge": "<URL String>",
-// "vibrate": "<Array of Integers>",
-// "sound": "<URL String>",
-// "dir": "<String of 'auto' | 'ltr' | 'rtl'>",
-
-// "//": "Behavioral Options",
-// "tag": "<String>",
-// "data": "<Anything>",
-// "requireInteraction": "<boolean>",
-// "renotify": "<Boolean>",
-// "silent": "<Boolean>",
-
-// "//": "Both visual & behavioral options",
-// "actions": "<Array of Strings>",
-
-// "//": "Information Option. No visual affect.",
-// "timestamp": "<Long>"
 
 self.addEventListener('push', function(event) {
-  let text,json
+  let text: string,json, title='', options={}
   try{
     json = event.data?.json()
-    // const {
-    //   body,
-    //   icon,
-    //   image,
-    //   badge,
-    //   vibrate,
-    //   sound,
-    //   dir,
-    //   tag,
-    //   data,
-    //   requireInteraction,
-    //   renotify,
-    //   silent,
-    
-    //   //: Both visual & behavioral options,
-    //   actions,
-    
-    //   //: Information Option. No visual affect.,
-    //   timestamp
-    // } = json
+    title = json.title || ''
+    options = json.options || {}
   } catch(err){
-    text = event.data?.text()
+    text = event.data?.text() || ''
+    title=text
   }
-  console.log(json, text)
-  const promiseChain = self.registration.showNotification('Hello, World.');
-
+  console.log(title, options)
+  const promiseChain = self.registration.showNotification(title, options);
   event.waitUntil(promiseChain);
 });
-
-// Any other custom service worker logic can go here.
