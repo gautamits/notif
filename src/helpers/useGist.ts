@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 
 export default function useGist<T extends {[key: string]: object | string}>(src: string){
-const [loading, setLoading] = useState(true)
-const [error, setError] = useState(null)
-const [files, setFiles] = useState<{[key in keyof T]: T[key]} | null>(null)
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
+  const [files, setFiles] = React.useState<{[key in keyof T]: T[key]} | null>(null)
 
-useEffect(() => {
+  useEffect(() => {
     fetch(src)
       .then(results => {
         return results.json();
