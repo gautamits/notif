@@ -53,6 +53,6 @@ function useServiceWorkerPush(applicationServerKey: string){
             console.error(err)
             setError(err)
         })
-    },[])
+    },[applicationServerKey])
     return [config, error]
 }

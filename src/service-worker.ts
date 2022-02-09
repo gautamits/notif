@@ -130,7 +130,7 @@ self.addEventListener('push', function(event) {
   } catch(err){
     text = event.data?.text()
   }
-  console.log(json)
+  console.log(json, text)
   const promiseChain = self.registration.showNotification('Hello, World.');
 
   event.waitUntil(promiseChain);
