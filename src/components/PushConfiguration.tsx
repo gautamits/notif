@@ -8,7 +8,7 @@ interface Props {
 export default function PushConfiguration(props: Props){
     const [swConfig, error] = useServiceWorkerPush(props.applicationServerKey)
     if(error){
-        return <textarea value={JSON.stringify(error)} />
+        return <textarea value={String(error)} />
     }
     return(
         <>
