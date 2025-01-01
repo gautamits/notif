@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import copy from 'copy-to-clipboard';
  
 interface Props {
@@ -11,14 +11,14 @@ export default function PushConfiguration(props: Props){
         return <textarea value={String(error)} />
     }
     return(
-        <>
-        <textarea style={{height: '30vh', width: '80vw'}}  value={JSON.stringify(swConfig, null, 2)} />
-        <button onClick={e=>copy(JSON.stringify(swConfig, null, 2))}>Copy to clipboard</button>
-        </>
+        <div className='flex flex-col h-full'>
+        <textarea readOnly className='flex-1 basis-[auto] border-red-600 rounded border mb-[6px]'  value={JSON.stringify(swConfig, null, 2)} />
+        <button className='bg-red-600 text-white uppercase rounded' onClick={e=>copy(JSON.stringify(swConfig, null, 2))}>Copy to clipboard</button>
+        </div>
     )
 }
 
-function useServiceWorkerPush(applicationServerKey: string){
+export function useServiceWorkerPush(applicationServerKey: string){
     const [config, setConfig] = useState<PushSubscription | null | undefined>(null)
     const [error, setError] = useState<unknown>(null)
     useEffect(()=>{

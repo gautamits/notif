@@ -15,6 +15,7 @@ import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
 declare const self: ServiceWorkerGlobalScope;
+const channel = new BroadcastChannel('sw-messages');
 
 clientsClaim();
 
@@ -80,6 +81,7 @@ self.addEventListener('message', (event) => {
 
 self.addEventListener('push', function(event) {
   let text: string,json, title='', options={}
+  console.log('push received')
   try{
     json = event.data?.json()
     title = json.title || ''
@@ -89,6 +91,11 @@ self.addEventListener('push', function(event) {
     title=text
   }
   console.log(title, options)
-  const promiseChain = self.registration.showNotification(title, options);
-  event.waitUntil(promiseChain);
+  if(title) {
+    const promiseChain = self.registration.showNotification(title, options);
+    event.waitUntil(promiseChain);
+  } else {
+    channel.postMessage({data: json});
+    console.log('message sent')
+  }
 });
